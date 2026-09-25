@@ -27,3 +27,41 @@ String? validate_lihok(String? move) {
 
   return null;
 }
+
+
+///Kuhaon ang valid move sa players. So ang function mag ask sa player hantud ma valid ang move nga iyang e enter.
+///So e ask jud ug balik balik ang players hantud ma valid ang iyang gi input nga move.
+String kuha_Move(String playerNgalan) {
+  String? move;
+
+  do {
+    stdout.write(
+        '$playerNgalan, enter your move (rock/paper/scissors): ');
+    String? input = stdin.readLineSync();
+
+    move = validate_lihok(input);
+
+    if (move == null) {
+      print('Invalid move. Please type rock, paper, or scissors.');
+    }
+  } while (move == null);
+
+  return move;
+}
+
+///Diria is mag decides kung kinsa ang winner diria nga round.
+///Then ang winner nga pangalan e return, or ma empty sya kung draw or tie.
+String? decideDaog(
+    String lihok1, String lihok2, String playerUna, String playerDuha) {
+  if (lihok1 == lihok2) {
+    return null;
+  }
+
+  if ((lihok1 == 'rock' && lihok2 == 'scissors') ||
+      (lihok1 == 'paper' && lihok2 == 'rock') ||
+      (lihok1 == 'scissors' && lihok2 == 'paper')) {
+    return playerUna;
+  }
+
+  return playerDuha;
+}
