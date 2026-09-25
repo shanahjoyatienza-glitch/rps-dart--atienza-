@@ -65,3 +65,72 @@ String? decideDaog(
 
   return playerDuha;
 }
+
+///Diria ang main function sa game
+///So mag ask diria ug pangalan sa players, then mag loop diria sa game hangtud maka decides ang players nga dili na sya mo duha utro. 
+void main() {
+  print('===== ROCK, PAPER, SCISSORS =====');
+
+  String playerUna = kuha_player('Player 1');
+  String playerDuha = kuha_player('Player 2');
+
+  int player1Score = 0;
+  int player2Score = 0;
+  int roundNumber = 1;
+
+  String playAgain;
+
+  do {
+    print('\n--- Round $roundNumber ---');
+
+    String playerUnaMove = kuha_Move(playerUna);
+
+    // Print about 30 blank lines to hide Player 1's move
+    for (int i = 0; i < 30; i++) {
+      print('');
+    }
+
+    String playerDuhaMove = kuha_Move(playerDuha);
+
+    print(
+        '\n$playerUna chose $playerUnaMove. $playerDuha chose $playerDuhaMove.');
+
+    String? winner = decideDaog(
+      playerUnaMove,
+      playerDuhaMove,
+      playerUna,
+      playerDuha,
+    );
+
+    if (winner == playerUna) {
+      player1Score++;
+      print('Result: $winner wins the round!');
+    } else if (winner == playerDuha) {
+      player2Score++;
+      print('Result: $winner wins the round!');
+    } else {
+      print('Result: ${winner ?? "It\'s a draw!"}');
+    }
+
+    print(
+        'Score -> $playerUna: $player1Score | $playerDuha: $player2Score');
+
+    stdout.write('Play again? (y/n): ');
+    String? tubag = stdin.readLineSync();
+    playAgain = (tubag ?? 'n').trim().toLowerCase();
+
+    roundNumber++;
+  } while (playAgain == 'y');
+
+  print('\n===== FINAL SCORE =====');
+  print(
+      '$playerUna: $player1Score | $playerDuha: $player2Score');
+
+  if (player1Score > player2Score) {
+    print('Overall winner: $playerUna');
+  } else if (player2Score > player1Score) {
+    print('Overall winner: $playerDuha');
+  } else {
+    print('Overall winner: Draw');
+  }
+}
